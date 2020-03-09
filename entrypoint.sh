@@ -21,6 +21,11 @@ set +e
 BUILD_OUTPUT=$(sh -c "packer build -var-file=${INPUT_VARFILE} ${INPUT_TEMPLATEFILE}" 2>&1)
 BUILD_SUCCESS=$?
 echo "$BUILD_OUTPUT"
+
+AMI_ID=$(tail -2 $BUILD_OUTPUT | head -2 | awk 'match($0, /ami-.*/) { print substr($0, RSTART, RLENGTH) }')
 set -e
+
+# Set Github actions output values
+echo "##[set-output name=AMI_ID;]$AMI_ID"
 
 exit $BUILD_SUCCESS

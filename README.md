@@ -1,6 +1,6 @@
 # Packer build action
 
-This action runs packer build.
+This action runs packer build. 
 
 ## Inputs
 
@@ -17,6 +17,7 @@ This action runs packer build.
 **Optional** Directory where the packer template and var file reside. Default `"."`.
 
 ## Outputs
+`AMI_ID` - AMI ID of new image
 
 ## Example usage
 
@@ -34,8 +35,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+
       - name: Packer build
-        uses: riznob/packer-build-action@v1.1
+        uses: signalsciences/packer-build-action@v1
         with:
           templateFile: 'packer-template.json'
           varFile: 'packer-vars.json'
@@ -45,3 +47,5 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: us-west-2
 ```
+
+Forked from `riznob/packer-build-action@v1.1`
