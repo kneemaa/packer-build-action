@@ -18,11 +18,9 @@ fi
 
 set +e
 # Run packer build
-BUILD_OUTPUT=$(sh -c "packer build -var-file=${INPUT_VARFILE} ${INPUT_TEMPLATEFILE}" 2>&1)
+BUILD_OUTPUT=$(sh -c "packer build -var-file=${INPUT_VARFILE} ${INPUT_TEMPLATEFILE}" 2>&1 | tee output.txt)
 BUILD_SUCCESS=$?
 echo "$BUILD_OUTPUT"
-
-echo $BUILD_OUTPUT > output.txt
 
 AMI_ID=$(tail -2 output.txt | head -2 | awk 'match($0, /ami-.*/) { print substr($0, RSTART, RLENGTH) }')
 set -e
