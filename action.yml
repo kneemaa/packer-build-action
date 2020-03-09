@@ -1,5 +1,5 @@
 name: 'Packer Build Action'
-author: ''
+author: 'Nema Darban <nema.darban@gmail.com>'
 description: 'Run packer build on a template file'
 inputs:
   templateFile:
