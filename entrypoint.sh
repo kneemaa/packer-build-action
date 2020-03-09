@@ -22,7 +22,9 @@ BUILD_OUTPUT=$(sh -c "packer build -var-file=${INPUT_VARFILE} ${INPUT_TEMPLATEFI
 BUILD_SUCCESS=$?
 echo "$BUILD_OUTPUT"
 
-AMI_ID=$(tail -2 $BUILD_OUTPUT | head -2 | awk 'match($0, /ami-.*/) { print substr($0, RSTART, RLENGTH) }')
+echo $BUILD_OUTPUT > output.txt
+
+AMI_ID=$(tail -2 output.txt | head -2 | awk 'match($0, /ami-.*/) { print substr($0, RSTART, RLENGTH) }')
 set -e
 
 # Set Github actions output values
